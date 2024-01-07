@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Группа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #chat {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            border: 1px solid #ccc;
+            padding: 10px;
+            min-height: 200px;
+        }
+
+        #backButton {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #userInput {
+            width: 80%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        #sendButton {
+            width: 18%;
+            padding: 8px;
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Группа</h1>
+
+<div id="backButton" onclick="goBack()">Назад</div>
+
+<div id="chat"></div>
+
+<div>
+    <input type="text" id="userInput" placeholder="Введите сообщение">
+    <button id="sendButton" onclick="sendMessage()">Отправить</button>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function sendMessage() {
+        var userInput = document.getElementById("userInput");
+        var chatDiv = document.getElementById("chat");
+
+        if (userInput.value.trim() !== "") {
+            var userMessageDiv = document.createElement("div");
+            userMessageDiv.innerHTML = "<p><strong>Вы:</strong> " + userInput.value + "</p>";
+            chatDiv.appendChild(userMessageDiv);
+
+            // Прокрутка вниз для отображения последнего сообщения
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+
+            // Очищаем поле ввода после отправки сообщения
+            userInput.value = "";
+
+            // Симуляция ответа от чат-бота
+            simulateBotResponse();
+        }
+    }
+
+    function simulateBotResponse() {
+        var chatDiv = document.getElementById("chat");
+        var botNames = ["Бот1", "Бот2", "Бот3"];
+        var randomBotName = botNames[Math.floor(Math.random() * botNames.length)];
+        var randomMessage = generateRandomMessage();
+
+        var botMessageDiv = document.createElement("div");
+        botMessageDiv.innerHTML = "<p><strong>" + randomBotName + ":</strong> " + randomMessage + "</p>";
+        chatDiv.appendChild(botMessageDiv);
+
+        // Прокрутка вниз для отображения последнего сообщения
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+
+    function generateRandomMessage() {
+        var messages = [
+            "Привет! Как дела?",
+            "Это интересно.",
+            "Чем я могу вам помочь?",
+            "Погода сегодня отличная!",
+            "Меня зовут Бот. Я здесь, чтобы помочь.",
+            "Как прошел ваш день?",
+            "Есть какие-то планы на вечер?",
+            "Что вы думаете о искусстве?"
+        ];
+
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+
+    // Имитация первого сообщения от бота при загрузке страницы
+    simulateBotResponse();
+</script>
+
+</body>
+</html>
